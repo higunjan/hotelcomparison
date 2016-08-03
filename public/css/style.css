@@ -25,17 +25,11 @@ body a{
 	padding:0;
 	margin-left: 16em;
 }
-.header-left{
-	/*--float: left;
-	width:65.55555%;--*/
-	padding: 9px 0;
-}
 .search-box {
 	float: left;
 }
 .logo {
     float: left;
-    margin: 10px 0px 0px 0px;
     width:30%;
 }
 .menu{
