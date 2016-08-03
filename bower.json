@@ -1,0 +1,12 @@
+{
+  "name": "hotelcomparison",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery":"*",
+    "angular": "1.2.16",
+    "bootstrap3-dialog":"*",
+    "bootstrap":"*",
+    "moment":"*",
+    "eonasdan-bootstrap-datetimepicker":"eonasdan-bootstrap-datetimepicker#latest"
+  }
+}

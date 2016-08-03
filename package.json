@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "test demo app",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "postinstall": "bower install"
   },
   "author": "Gunjan <patelgunjan777@gmail.com>",
   "dependencies": {
