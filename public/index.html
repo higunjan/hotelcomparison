@@ -27,15 +27,47 @@
     <script src="js/jquery.easydropdown.js"></script>
     <!--Animation-->
     <script src="js/wow.min.js"></script>
+
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+
     <link href="css/animate.css" rel='stylesheet' type='text/css' />
     <style type="text/css">
     div #dateselector {
         margin-top: 3%;
     }
-    </style>
+    .ui-autocomplete-loading {
+        background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+    }
+    <style>
+  
+    #city { width: 25em; }
+  </style>
     <script>
-    new WOW().init();
+        new WOW().init();
     </script>
+    <script>
+          $( function() {
+            $( "div#autocomplete #city" ).autocomplete({
+              source: function( request, response ) {
+                $.ajax( {
+                  url: "http://gd.geobytes.com/AutoCompleteCity",
+                  dataType: "jsonp",
+                  data: {
+                    q: request.term
+                  },
+                  success: function( data ) {
+                    $("ul#ui-id-1").css({"background": "white", "cursor": "pointer", "border-radius": '10px'})
+                    response( data.length === 1 && data[ 0 ].length === 0 ? [] : data );
+                  }
+                } );
+              },
+              minLength: 3,
+              select: function( event, ui ) {
+                //log( "Selected: " + ui.item.label );
+              }
+            } );
+          } );
+  </script>
 </head>
 
 <body>
@@ -103,8 +135,9 @@
         <div class="container_wrap">
             <h1>What are you looking for?</h1>
             <div class="dropdown-buttons">
-                <div class="dropdown-button">
-                    <select class="dropdown" tabindex="9" data-settings='{"wrapperClass":"flat"}'>
+                <div id="autocomplete">
+                    <input id="city" type="text" value="Please Enter Place" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Please Enter Place';}" class="ui-autocomplete-input" autocomplete="off">
+                    <!-- <select class="dropdown" tabindex="9" data-settings='{"wrapperClass":"flat"}'>
                         <option value="0">India</option>
                         <option value="1">Australia</option>
                         <option value="2">Sri Lanka</option>
@@ -116,7 +149,7 @@
                         <option value="8">Dubai</option>
                         <option value="8">Paris</option>
                         <option value="8">Switchzarland</option>
-                    </select>
+                    </select> -->
                 </div>
                 <div class="dropdown-button">
                     <select class="dropdown" tabindex="9" placeholder="Room Type" data-settings='{"wrapperClass":"flat"}'>
@@ -142,7 +175,7 @@
                 </div>
             </div>
             <form>
-                <<!-- input type="text" value="Keyword, name, date, ..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Keyword, name, date, ...';}"> -->
+                <!--< input type="text" value="Keyword, name, date, ..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Keyword, name, date, ...';}"> -->
                 <div class="contact_btn">
                     <label class="btn1 btn-2 btn-2g">
                         <input name="submit" type="submit" id="submit" value="Search">

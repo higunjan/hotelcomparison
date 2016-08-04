@@ -6,6 +6,7 @@
     "angular": "1.2.16",
     "bootstrap3-dialog":"*",
     "bootstrap":"*",
+    "jquery-ui":"*",
     "moment":"*",
     "eonasdan-bootstrap-datetimepicker":"eonasdan-bootstrap-datetimepicker#latest"
   }
