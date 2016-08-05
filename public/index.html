@@ -56,12 +56,19 @@
                     q: request.term
                   },
                   success: function( data ) {
-                    $("ul#ui-id-1").css({"background": "white", "cursor": "pointer", "border-radius": '10px'})
                     response( data.length === 1 && data[ 0 ].length === 0 ? [] : data );
+                    if($(window).width() <= 320){
+                        $("ul#ui-id-1").css({"background": "white", "cursor": "pointer", "border-radius": '10px', 'width': '90%', 'font-size': '15px'})   
+                    } else if($(window).width() <= 440){
+                        $("ul#ui-id-1").css({"background": "white", "cursor": "pointer", "border-radius": '10px', 'width': '60%', 'font-size': '15px'})   
+                    }else{
+                        $("ul#ui-id-1").css({"background": "white", "cursor": "pointer", "border-radius": '10px', 'width': '33%', 'font-size': '15px'})
+                    }
                   }
                 } );
               },
               minLength: 3,
+              width: '33%',
               select: function( event, ui ) {
                 //log( "Selected: " + ui.item.label );
               }
