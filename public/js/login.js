@@ -1,22 +1,22 @@
-$( document ).ready(function() {
-$('#cssmenu > ul > li > a').click(function() {
-  $('#cssmenu li').removeClass('active');
-  $(this).closest('li').addClass('active');	
-  var checkElement = $(this).next();
-  if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
-    $(this).closest('li').removeClass('active');
-    checkElement.slideUp('normal');
-  }
-  if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
-    $('#cssmenu ul ul:visible').slideUp('normal');
-    checkElement.slideDown('normal');
-  }
-  if($(this).closest('li').find('ul').children().length == 0) {
-    return true;
-  } else {
-    return false;	
-  }		
-});
+$(document).ready(function() {
+    $('#cssmenu > ul > li > a').click(function() {
+        $('#cssmenu li').removeClass('active');
+        $(this).closest('li').addClass('active');
+        var checkElement = $(this).next();
+        if ((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+            $(this).closest('li').removeClass('active');
+            checkElement.slideUp('normal');
+        }
+        if ((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+            $('#cssmenu ul ul:visible').slideUp('normal');
+            checkElement.slideDown('normal');
+        }
+        if ($(this).closest('li').find('ul').children().length == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    });
 });
 
 
@@ -30,13 +30,32 @@ $(function() {
         box.toggle();
         button.toggleClass('active');
     });
-    form.mouseup(function() { 
+    form.mouseup(function() {
         return false;
     });
+
     $(this).mouseup(function(login) {
-        if(!($(login.target).parent('#loginButton').length > 0)) {
+        if (!($(login.target).parent('#loginButton').length > 0)) {
             button.removeClass('active');
             box.hide();
         }
+    });
+
+    $("#loginForm").submit(function(event) {
+            var option = {
+                'username': $("input#email").val(),
+                'password': $("input#password").val()
+            }
+            console.log(option);
+
+            $.post( window.location.origin+"/login", option, function( data ) {
+                if(data.status == 1){
+                  alert(data.message);
+                  window.location.href = "http://hotelcomparison.herokuapp.com";
+                }else{
+                  alert(data.message);
+                  window.location.href = "http://hotelcomparison.herokuapp.com";
+                }
+            }, "json");
     });
 });
