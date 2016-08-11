@@ -41,21 +41,30 @@ $(function() {
         }
     });
 
-    $("#loginForm").submit(function(event) {
+    $("#login").click(function(event) {
             var option = {
                 'username': $("input#email").val(),
                 'password': $("input#password").val()
             }
             console.log(option);
-
-            $.post( window.location.origin+"/login", option, function( data ) {
-                if(data.status == 1){
-                  alert(data.message);
-                  window.location.href = "http://hotelcomparison.herokuapp.com";
-                }else{
-                  alert(data.message);
-                  window.location.href = "http://hotelcomparison.herokuapp.com";
+            $.ajax({
+                type: 'POST',
+                url: window.location.origin+"/login",
+                crossDomain: true,
+                data: option,
+                dataType: 'json',
+                success: function(responseData, textStatus, jqXHR) {
+                    if(responseData.status == 1){
+                      alert(responseData.message);
+                      window.location.href = "http://hotelcomparison.herokuapp.com";
+                    }else{
+                      alert(responseData.message);
+                      window.location.href = "http://hotelcomparison.herokuapp.com";
+                    }
+                },
+                error: function (responseData, textStatus, errorThrown) {
+                    alert('POST failed.');
                 }
-            }, "json");
+            });
     });
 });
