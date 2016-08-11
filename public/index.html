@@ -50,13 +50,25 @@
             $( "div#autocomplete #city" ).autocomplete({
               source: function( request, response ) {
                 $.ajax( {
-                  url: "http://gd.geobytes.com/AutoCompleteCity",
-                  dataType: "jsonp",
+                  url: "https://api.qloo.com/suggestions?qloos.filter.category=travel/destinations&pageSize=30&page=1&query="+$("#city").val(),
+                  datatype: 'application/json',
                   data: {
                     q: request.term
                   },
                   success: function( data ) {
-                    response( data.length === 1 && data[ 0 ].length === 0 ? [] : data );
+                    console.log(data)
+                    var arr = data.body.suggestions,
+                        data1 = [];
+                        console.log(arr);
+                    if(arr && arr.length > 0){
+                        arr.forEach(function(val){
+                            data1.push(val.title + ", "+val.disambiguation)
+                        })
+                        response(data1);
+                    }else{
+                        response([]);
+                    }
+                    // response( data.length === 1 && data[ 0 ].length === 0 ? [] : data );
                     if($(window).width() <= 320){
                         $("ul#ui-id-1").css({"background": "white", "cursor": "pointer", "border-radius": '10px', 'width': '90%', 'font-size': '15px'})   
                     } else if($(window).width() <= 440){
@@ -64,6 +76,9 @@
                     }else{
                         $("ul#ui-id-1").css({"background": "white", "cursor": "pointer", "border-radius": '10px', 'width': '33%', 'font-size': '15px'})
                     }
+                  },
+                  error: function(data){
+                        console.log(data)
                   }
                 } );
               },
